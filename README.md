@@ -1,23 +1,14 @@
-# NodeJS Express Typescript Mysql API example with auth and files uploading
+# NodeJS Express Typescript Sequelize API example with JWT auth and files uploading features implemented
 
-## Install and run
-
-### Database
-
-For the test purposes you can install Docker and run MySQL in Docker container on 127.0.0.1 port 3306:
-
-```bash
-cd /db
-docker-compose up -d
-```
+## Installation and run
 
 ## Features
 
-- Bearer token authorization
-- Token valid 10 minutes, request
-- CORS for access from any domain
-- Database - MySQL
-- Unit testing
+- Bearer token JWT authorization with refreshToken feature without dependencies
+- File uloading CRUD
+- CORS friendly accessable from any domain
+- Database - MySQL via Sequelize ORM
+- Unit tests, Jest
 
 ## API reference
 
@@ -25,41 +16,41 @@ docker-compose up -d
 
 ### Authorization without dependencies
 
-/signup [POST] - User registration with id and password
+/api/auth/signup [POST] - User registration with id and password
 
 - id - phone number or email
 - returns bearer and refresh tokens after successfull registration
 - bearer and refresh tokens encoded in base64 and pushed to the client's cookies
 
-/signin [POST] - returns bearer token with correct credentials provided
+/api/auth/signin [POST] - returns bearer token with correct credentials provided
 
 - bearer token lifetime is 10 minutes
 
-/signin/new_token [POST] - update bearer token on refresh token sent
+/api/auth/signin/new_token [POST] - update bearer token on refresh token sent
 
-/info [GET] - returns user id in payload
+/api/auth/info [GET] - returns user id in payload
 
-/logout [GET] - logout, old token removed from DB and local storage
+/api/auth/logout [GET] - logout, old token removed from DB and local storage
 
 ### File storage
 
-/file/upload [POST] - upload file to storage and add new file to the database
+/api/file/upload [POST] - upload file to storage and add new file to the database
 
 - file has: name, extension, MIME type, size, upload date
 
-/file/list [GET] - Files list with pagination
+/api/file/list [GET] - Files list with pagination
 
 - page size is a parameter list_size
 - default is 10 items on a page
 - page number in the page parameter, default is 1 if empty
 
-  /file/delete/:id [DELETE] - delete file from storage and DB
+/api/file/delete/:id [DELETE] - delete file from storage and DB
 
-  /file/:id [GET] - show file info
+/api/file/:id [GET] - show file info
 
-  /file/download/:id [GET] - download link
+/api/file/download/:id [GET] - download link
 
-  /file/update/:id [PUT] - replace file in storage, update file info in database
+/api/file/update/:id [PUT] - replace file in storage, update file info in database
 
 ## Unit tests
 

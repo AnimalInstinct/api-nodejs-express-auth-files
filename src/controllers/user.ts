@@ -38,6 +38,9 @@ class UserController {
         expiresIn: '10m',
       }
     )
+    req.session = {
+      bearer: userJwt,
+    }
     res.status(200).json({ bearer: userJwt })
   }
 
@@ -76,6 +79,15 @@ class UserController {
       bearer: userJwt,
       refreshToken: refreshToken,
     })
+  }
+
+  public getSignout = async (req: Request, res: Response) => {
+    req.session = null
+    res.send({})
+  }
+
+  public getInfo = async (req: Request, res: Response) => {
+    res.send({ currentUser: req.currentUser || null })
   }
 }
 
