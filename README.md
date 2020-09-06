@@ -1,4 +1,4 @@
-# NodeJS API example with auth and files uploading
+# NodeJS Express Typescript Mysql API example with auth and files uploading
 
 ## Install and run
 
@@ -23,7 +23,7 @@ docker-compose up -d
 
 ### Authorization
 
-/signup [POST] - User registration with id and password.
+/signup [POST] - User registration with id and password
 
 - id - phone number or email
 - returns bearer token after successfull registration

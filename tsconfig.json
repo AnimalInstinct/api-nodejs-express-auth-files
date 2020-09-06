@@ -1,22 +1,15 @@
 {
   "compilerOptions": {
-    "module": "CommonJS",
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "noImplicitAny": true,
-    "preserveConstEnums": true,
-    "outDir": "./build/",
-    "inlineSourceMap": true,
     "target": "es5",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "allowJs": true,
+    "outDir": "build",
+    "sourceMap": true,
     "strict": true,
-    "noFallthroughCasesInSwitch": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noImplicitThis": true,
-    "esModuleInterop": true
+    "typeRoots": ["./@types", "./node_modules/@types"]
   },
-  "include": ["./src/**/*", "./web/**/*.ts", "test"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules"]
 }

@@ -1,19 +1,32 @@
-import express from 'express'
-import * as bodyParser from 'body-parser'
-import router from './router'
-import cors from 'cors'
+import * as express from 'express'
+import * as helmet from 'helmet'
+import * as morgan from 'morgan'
+import * as passport from 'passport'
+import * as cors from 'cors'
 
-const app = express()
+import passportConfig from './config/passport'
 
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+import IndexRouter from './routes/index'
+import UserRouter from './routes/user'
 
-app.set('trust proxy', true)
+class App {
+  public app!: express.Application
 
-const corsMiddleware = cors({ origin: '*', preflightContinue: true })
-app.use(corsMiddleware)
-app.options('*', corsMiddleware)
+  constructor() {
+    this.app = express()
 
-router(app)
+    this.app.use(cors())
+    this.app.use(morgan('combined'))
+    this.app.use(helmet())
+    this.app.use(express.json())
+    this.app.use(express.urlencoded({ extended: false }))
 
-export default app
+    passportConfig(passport)
+    this.app.use(passport.initialize())
+
+    this.app.use('/', IndexRouter)
+    this.app.use('/', UserRouter)
+  }
+}
+
+export default new App().app

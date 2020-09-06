@@ -1,29 +1,33 @@
-const path = require('path')
-require('dotenv').config()
-module.exports = {
+import * as dotenv from 'dotenv'
+
+dotenv.config()
+console.log(process.env)
+export default {
   development: {
-    username: process.env.DEV_DB_USERNAME,
-    password: process.env.DEV_DB_PASSWORD,
-    database: process.env.DEV_DB_NAME,
-    host: process.env.DEV_DB_HOSTNAME,
+    username: process.env.MYSQL_USER!,
+    password: process.env.MYSQL_PASSWORD!,
+    database: process.env.MYSQL_DATABASE!,
+    host: process.env.MYSQL_HOST!,
     dialect: 'mysql',
-    operatorsAliases: false,
+    timezone: '+04:00',
+    logging: false,
   },
   test: {
-    username: process.env.TEST_DB_USERNAME,
-    password: process.env.TEST_DB_PASSWORD,
-    database: process.env.TEST_DB_NAME,
-    host: process.env.TEST_DB_HOSTNAME,
-    dialect: 'sqlite',
-    storage: ':memory:',
-    operatorsAliases: false,
+    username: process.env.MYSQL_USER!,
+    password: process.env.MYSQL_PASSWORD!,
+    database: process.env.MYSQL_DATABASE!,
+    host: process.env.MYSQL_HOST!,
+    dialect: 'mysql',
+    timezone: '+04:00',
+    logging: false,
   },
   production: {
-    username: process.env.PROD_DB_USERNAME,
-    password: process.env.PROD_DB_PASSWORD,
-    database: process.env.PROD_DB_NAME,
-    host: process.env.PROD_DB_HOSTNAME,
-    operatorsAliases: false,
+    username: process.env.MYSQL_USER!,
+    password: process.env.MYSQL_PASSWORD!,
+    database: process.env.MYSQL_DATABASE!,
+    host: process.env.MYSQL_HOST!,
     dialect: 'mysql',
+    timezone: '+04:00',
+    logging: false,
   },
 }
