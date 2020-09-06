@@ -8,7 +8,7 @@ class IndexRouter {
   constructor() {
     this.router = Router()
 
-    this.router.get('/', isAuthenticated, IndexController.index)
+    this.router.post('/', isAuthenticated, IndexController.index)
   }
 }
 

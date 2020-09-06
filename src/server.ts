@@ -1,11 +1,17 @@
 import 'reflect-metadata'
-import * as dotenv from 'dotenv'
+import dotenv from 'dotenv'
 
 dotenv.config()
 
 import { sequelize } from './models/index'
 import app from './app'
 
+// Throw error if JWT not specified in .env
+if (!process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET must be defined in .env')
+}
+
+// Connect to Mysql or throw Error
 sequelize
   .sync()
   .then(() => {

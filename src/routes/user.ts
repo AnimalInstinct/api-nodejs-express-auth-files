@@ -1,5 +1,4 @@
 import { Router } from 'express'
-
 import UserController from '../controllers/user'
 import wrapAsync from './async.wrapper'
 
@@ -8,8 +7,8 @@ class UserRouter {
 
   constructor() {
     this.router = Router()
-    this.router.post('/register', wrapAsync(UserController.postRegister))
-    this.router.post('/login', wrapAsync(UserController.postLogin))
+    this.router.post('/signup', wrapAsync(UserController.postSignup))
+    this.router.post('/signin', wrapAsync(UserController.postSignin))
   }
 }
 

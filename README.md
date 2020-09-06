@@ -21,14 +21,19 @@ docker-compose up -d
 
 ## API reference
 
-### Authorization
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/919f8c9e6170273e0bd6)
+
+### Authorization without dependencies
 
 /signup [POST] - User registration with id and password
 
 - id - phone number or email
-- returns bearer token after successfull registration
+- returns bearer and refresh tokens after successfull registration
+- bearer and refresh tokens encoded in base64 and pushed to the client's cookies
 
-/signin [POST] - returns bearer token and refresh token with correct credentials provided
+/signin [POST] - returns bearer token with correct credentials provided
+
+- bearer token lifetime is 10 minutes
 
 /signin/new_token [POST] - update bearer token on refresh token sent
 

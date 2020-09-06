@@ -2,33 +2,33 @@ import { Model, DataTypes } from 'sequelize'
 import { sequelize } from './sequelize'
 import { dbType } from './index'
 
-class User extends Model {
+class RefreshToken extends Model {
   public readonly id!: number
 
-  public userName!: string
+  public userId!: number
 
   public email!: string
 
-  public password!: string
-
-  public firstName!: string
-
-  public lastName!: string
+  public token!: string
 
   public readonly createdAt!: Date
 
   public readonly updatedAt!: Date
 }
 
-User.init(
+RefreshToken.init(
   {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    userName: {
-      type: DataTypes.STRING(50),
+    token: {
+      type: DataTypes.TEXT(),
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
       unique: true,
       validate: {
@@ -43,28 +43,18 @@ User.init(
         isEmail: true,
       },
     },
-    password: {
-      type: DataTypes.TEXT(),
-      allowNull: false,
-    },
-    firstName: {
-      type: DataTypes.STRING(50),
-    },
-    lastName: {
-      type: DataTypes.STRING(50),
-    },
   },
   {
     sequelize,
-    modelName: 'User',
-    tableName: 'users',
+    modelName: 'RefreshToken',
+    tableName: 'refresh_tokens',
     charset: 'utf8mb4',
     collate: 'utf8mb4_unicode_ci',
   }
 )
 
 export const associate = (db: dbType) => {
-  User.hasOne(db.RefreshToken, { foreignKey: 'userId' })
+  RefreshToken.belongsTo(db.User, { foreignKey: 'userId' })
 }
 
-export default User
+export default RefreshToken
