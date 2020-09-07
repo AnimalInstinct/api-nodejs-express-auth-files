@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import RefreshTokenController from '../controllers/refreshtoken'
-import wrapAsync from './async.wrapper'
+import wrapAsync from '../helpers/async.wrapper'
 
 class RefreshTokenRouter {
   public router!: Router

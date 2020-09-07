@@ -53,8 +53,6 @@ RefreshToken.init(
   }
 )
 
-export const associate = (db: dbType) => {
-  RefreshToken.belongsTo(db.User, { foreignKey: 'userId' })
-}
+export const associate = (db: dbType) => {}
 
 export default RefreshToken

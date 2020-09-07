@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import UserController from '../controllers/user'
-import wrapAsync from './async.wrapper'
+import wrapAsync from '../helpers/async.wrapper'
 import { currentUser } from '../middleware'
 
 class UserRouter {

@@ -63,8 +63,6 @@ User.init(
   }
 )
 
-export const associate = (db: dbType) => {
-  User.hasOne(db.RefreshToken, { foreignKey: 'userId' })
-}
+export const associate = (db: dbType) => {}
 
 export default User

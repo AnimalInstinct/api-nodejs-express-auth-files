@@ -19,7 +19,6 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.session?.bearer)
   if (!req.session?.bearer) {
     return next()
   }
