@@ -1,93 +1,88 @@
-import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
-import { BadRequestError } from '../errors'
-import { Password } from '../helpers'
+import {
+  login,
+  createUser,
+  refreshAccessToken,
+  fetchUserById,
+  destroySession,
+} from '../services'
 import dotenv from 'dotenv'
-import { randomBytes } from 'crypto'
-import RefreshToken from '../models/refreshToken'
-
+import { NotAuthorizedError } from '../errors'
 dotenv.config()
 
-import User from '../models/user'
-
 class UserController {
+  public postSignup = async (req: Request, res: Response) => {
+    const tokenPair = await createUser(req.body)
+    const { userJwt: jwt, refreshToken } = tokenPair
+    req.session = {
+      jwt,
+    }
+    res.status(201).json({
+      message: 'User created, please sign in!',
+      bearer: jwt,
+      refreshToken: refreshToken,
+    })
+  }
+
   public postSignin = async (
     req: Request,
     res: Response,
     next: NextFunction
   ) => {
     const { email, password } = req.body
-    const existingUser = await User.findOne({ where: { email } })
-    if (!existingUser) {
-      throw new BadRequestError('User not found')
-    }
-    const passwordsMatch = await Password.compare(
-      existingUser.password,
-      password
-    )
-    if (!passwordsMatch) {
-      throw new BadRequestError('Invalid credentials')
-    }
-    const userJwt = jwt.sign(
-      {
-        id: existingUser.id,
-        email: existingUser.email,
-      },
-      process.env.JWT_SECRET!,
-      {
-        expiresIn: '10m',
-      }
-    )
+    const jwt = await login(email, password)
     req.session = {
-      bearer: userJwt,
+      jwt,
     }
-    res.status(200).json({ bearer: userJwt })
+    res.status(200).json(jwt)
   }
 
-  public postSignup = async (req: Request, res: Response) => {
-    const { password } = req.body
-    const hashedPassword = await Password.toHash(password)
-    const user: User = await User.create({
-      userName: req.body.username,
-      email: req.body.email,
-      password: hashedPassword,
-      firstName: req.body.firstname,
-      lastName: req.body.lastname,
-    })
-    const refreshToken = randomBytes(64).toString('hex')
-    await RefreshToken.create({
-      token: refreshToken,
-      userId: user.id,
-      email: user.email,
-    })
-    const userJwt = jwt.sign(
-      {
-        id: user.id,
-        email: user.email,
-      },
-      process.env.JWT_SECRET!,
-      {
-        expiresIn: '10m',
+  public postNewToken = async (req: Request, res: Response) => {
+    try {
+      const jwt = await refreshAccessToken(req.body.refreshToken)
+      req.session = {
+        jwt,
       }
-    )
-    req.session = {
-      bearer: userJwt,
-      refreshToken: refreshToken,
+      return res.status(200).json(jwt)
+    } catch (error) {
+      if (error === 'Invalid refreshToken.') {
+        return res.status(400).json({
+          message: error,
+        })
+      }
+      throw error
     }
-    res.status(201).json({
-      message: 'User created, please sign in!',
-      bearer: userJwt,
-      refreshToken: refreshToken,
-    })
   }
 
   public getSignout = async (req: Request, res: Response) => {
-    req.session = null
-    res.send({})
+    try {
+      if (req.currentUser) {
+        const result = await destroySession(req.currentUser?.id)
+        if (result) {
+          req.session = null
+          return res.sendStatus(200)
+        }
+      }
+    } catch (error) {
+      throw error
+    }
   }
 
   public getInfo = async (req: Request, res: Response) => {
-    res.send({ currentUser: req.currentUser || null })
+    const currentUser = req.currentUser || null
+    try {
+      if (currentUser) {
+        const userInfo = await fetchUserById(currentUser.id)
+        return res.status(200).json(userInfo)
+      }
+    } catch (error) {
+      if (error === 'User info not found.') {
+        return res.status(400).json({
+          message: error,
+        })
+      }
+      throw error
+    }
   }
 }
 

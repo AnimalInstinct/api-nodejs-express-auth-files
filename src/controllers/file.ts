@@ -73,7 +73,6 @@ class FilesController {
 
   public updateFile = async (req: Request, res: Response) => {
     const uploadedFile = req.file
-    console.log(uploadedFile)
     try {
       const updatedFile = await upsertFile(
         {

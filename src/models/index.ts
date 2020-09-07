@@ -1,4 +1,5 @@
 import User, { associate as associateUser } from './user'
+import Session, { associate as associateSession } from './session'
 import File, { associate as associateFile } from './file'
 import RefreshToken, {
   associate as associateRefreshToken,
@@ -8,7 +9,7 @@ export * from './sequelize'
 
 const db = {
   User,
-  RefreshToken,
+  Session,
   File,
 }
 

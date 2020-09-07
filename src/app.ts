@@ -20,8 +20,7 @@ class App {
         secure: false,
       })
     )
-    this.app.use(express.urlencoded({ extended: false }))
-    this.app.use('/api/auth/newtoken', RefreshTokenRouter)
+    // this.app.use(express.urlencoded({ extended: false }))
     this.app.use('/api/auth', UserRouter)
     this.app.use('/api/files', FilesRouter)
   }

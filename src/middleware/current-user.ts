@@ -19,15 +19,16 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.session?.bearer) {
+  if (!req.session?.jwt?._bearer) {
     return next()
   }
   try {
     const payload = jwt.verify(
-      req.session.bearer,
+      req.session?.jwt._bearer,
       process.env.JWT_SECRET!
     ) as UserPayload
     req.currentUser = payload
+    console.log(req.currentUser)
   } catch (error) {}
   next()
 }

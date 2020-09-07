@@ -53,7 +53,6 @@ export const upsertFile = async (fileData: FileData, fileId?: string) => {
 }
 
 export const fetchFiles = async (listSize: number, page: number) => {
-  console.log(listSize, ' ', page)
   try {
     return await File.findAll({
       limit: listSize,
