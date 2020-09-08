@@ -28,7 +28,6 @@ export const currentUser = (
       process.env.JWT_SECRET!
     ) as UserPayload
     req.currentUser = payload
-    console.log(req.currentUser)
   } catch (error) {}
   next()
 }

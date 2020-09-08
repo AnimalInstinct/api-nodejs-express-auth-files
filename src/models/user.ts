@@ -4,19 +4,12 @@ import { dbType } from './index'
 
 class User extends Model {
   public readonly id!: number
-
   public userName!: string
-
   public email!: string
-
   public password!: string
-
   public firstName!: string
-
   public lastName!: string
-
   public readonly createdAt!: Date
-
   public readonly updatedAt!: Date
 }
 

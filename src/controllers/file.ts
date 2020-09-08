@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { BadRequestError } from 'src/errors'
 import {
   upsertFile,
   fetchFileById,
@@ -11,9 +12,8 @@ const mime = require('mime-types')
 class FilesController {
   public postUpload = async (req: Request, res: Response) => {
     if (!req.file) {
-      res.send({
-        status: false,
-        message: 'Request has no files',
+      return res.status(400).json({
+        message: 'No file to upload.',
       })
     } else {
       try {

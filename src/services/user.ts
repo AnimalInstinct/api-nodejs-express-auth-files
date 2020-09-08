@@ -51,6 +51,7 @@ export const login = async (email: string, password: string) => {
     const existingUser = await User.findOne({ where: { email } })
     if (!existingUser) {
       throw new BadRequestError('User not found')
+      return
     }
     const passwordsMatch = await Password.compare(
       existingUser.password,

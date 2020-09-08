@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import UserRouter from './routes/user'
 import FilesRouter from './routes/file'
-import RefreshTokenRouter from './routes/refreshToken'
+import { errorHandler } from './middleware'
 import cookieSession from 'cookie-session'
 import dotenv from 'dotenv'
 
@@ -23,6 +23,7 @@ class App {
     // this.app.use(express.urlencoded({ extended: false }))
     this.app.use('/api/auth', UserRouter)
     this.app.use('/api/files', FilesRouter)
+    this.app.use(errorHandler)
   }
 }
 

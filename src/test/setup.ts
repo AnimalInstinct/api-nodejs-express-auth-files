@@ -1,36 +1,26 @@
 import request from 'supertest'
 import app from '../app'
 
-// adding signin function to the global scope
-declare global {
-  namespace NodeJS {
-    interface Global {
-      signin(): Promise<string[]>
-    }
-  }
-}
-
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 600000
 
-let mongo: any
+beforeAll(async () => {
+  let _bearer
 
-beforeAll(async () => {})
+  await request(app).post('/api/auth/signup').send({
+    userName: 'User1',
+    email: 'test@test.com',
+    password: '12345',
+    firstName: 'User',
+    lastName: 'One',
+  })
+  const response = await request(app).post('/api/auth/signin').send({
+    email: 'test@test.com',
+    password: '12345',
+  })
+
+  _bearer = response.body._bearer
+})
 
 beforeEach(async () => {})
 
 afterAll(async () => {})
-
-// init global sign in function that returns cookie with user's details
-// global.signin = async () => {
-//   const email = 'test@test.com'
-//   const password = 'password'
-
-//   const response = await request(app)
-//     .post('/api/users/signup')
-//     .send({ email, password })
-//     .expect(201)
-
-//   const cookie = response.get('Set-Cookie')
-
-//   return cookie
-// }

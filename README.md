@@ -2,6 +2,10 @@
 
 ## Installation and run
 
+```bash
+
+```
+
 ## Features
 
 - Bearer token JWT authorization with refreshToken feature without dependencies
@@ -53,6 +57,20 @@
 /api/file/update/:id [PUT] - replace file in storage, update file info in database
 
 ## Unit tests
+
+### Users auth tests list:
+
+### File storage tests list:
+
+√ returns a 401 on attempt to upload without signing in
+√ returns a 400 if request has no file
+√ returns a 200 on successfull upload
+√ returns list of 3 uploaded files
+√ returns list of 5 uploaded files, 3 on 1st page and 2 on 2nd
+√ upload file, check physically uploaded, delete file from database and from disk
+√ get file information
+√ download file link
+√ update file
 
 ```bash
 npm run test

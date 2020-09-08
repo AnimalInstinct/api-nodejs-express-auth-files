@@ -7,7 +7,7 @@ import {
   destroySession,
 } from '../services'
 import dotenv from 'dotenv'
-import { NotAuthorizedError } from '../errors'
+import { NotAuthorizedError, NotFoundError } from '../errors'
 dotenv.config()
 
 class UserController {
@@ -33,6 +33,9 @@ class UserController {
     const jwt = await login(email, password)
     req.session = {
       jwt,
+    }
+    if (!jwt) {
+      throw new NotFoundError()
     }
     res.status(200).json(jwt)
   }
