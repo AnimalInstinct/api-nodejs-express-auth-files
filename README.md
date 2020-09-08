@@ -60,6 +60,20 @@
 
 ### Users auth tests list:
 
+√ returns a 201 on successfull signup
+√ got bearer and refresh token on signup
+√ got bearer and refresh token on signin
+√ returns bearer token on refresh token provided
+√ show logged in user information (id)
+√ got 404 on non existing user on SignIn
+√ got 400 on incorrect login (not email) on SignIn
+√ got 400 on incorrect password on SignIn
+√ got 400 on no login on SignIn
+√ got 400 on no password on SignIn
+√ returns a 400 with an invalid email on signUp
+√ returns a 400 with an invalid password on signUp
+√ returns a 400 with missing email and password on signUp
+
 ### File storage tests list:
 
 √ returns a 401 on attempt to upload without signing in

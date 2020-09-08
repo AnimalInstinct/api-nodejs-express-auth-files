@@ -7,9 +7,8 @@
   "main": "index.ts",
   "scripts": {
     "pretest": "cross-env NODE_ENV=test npm run migrate:reset",
-    "test": "cross-env NODE_ENV=test jest --testTimeout=10000",
-    "test:watch": "cross-env NODE_ENV=test jest --watchAll --no-cache",
-    "test:debug": "cross-env NODE_ENV=test jest --watchAll --no-cache --runInBand --detectOpenHandles",
+    "test": "cross-env NODE_ENV=test jest --watchAll --no-cache --runInBand --detectOpenHandles --testTimeout=10000",
+    "test:watch": "cross-env NODE_ENV=test jest --watchAll --no-cache --runInBand --detectOpenHandles --testTimeout=10000",
     "build": "tsc",
     "build:watch": "tsc --watch",
     "start": "node ./build/server.js",
