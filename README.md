@@ -3,7 +3,9 @@
 ## Installation and run
 
 ```bash
-
+git pull git@github.com:AnimalInstinct/api-nodejs-express-auth-files.git
+cd api-nodejs-express-auth-files
+npm install
 ```
 
 ## Features
@@ -60,31 +62,33 @@
 
 ### Users auth tests list:
 
-√ returns a 201 on successfull signup
-√ got bearer and refresh token on signup
-√ got bearer and refresh token on signin
-√ returns bearer token on refresh token provided
-√ show logged in user information (id)
-√ got 404 on non existing user on SignIn
-√ got 400 on incorrect login (not email) on SignIn
-√ got 400 on incorrect password on SignIn
-√ got 400 on no login on SignIn
-√ got 400 on no password on SignIn
-√ returns a 400 with an invalid email on signUp
-√ returns a 400 with an invalid password on signUp
-√ returns a 400 with missing email and password on signUp
+- returns a 201 on successfull signup
+- got bearer and refresh token on signup
+- got bearer and refresh token on signin
+- returns bearer token on refresh token provided
+- show logged in user information (id)
+- got 404 on non existing user on SignIn
+- got 400 on incorrect login (not email) on SignIn
+- got 400 on incorrect password on SignIn
+- got 400 on no login on SignIn
+- got 400 on no password on SignIn
+- returns a 400 with an invalid email on signUp
+- returns a 400 with an invalid password on signUp
+- returns a 400 with missing email and password on signUp
 
 ### File storage tests list:
 
-√ returns a 401 on attempt to upload without signing in
-√ returns a 400 if request has no file
-√ returns a 200 on successfull upload
-√ returns list of 3 uploaded files
-√ returns list of 5 uploaded files, 3 on 1st page and 2 on 2nd
-√ upload file, check physically uploaded, delete file from database and from disk
-√ get file information
-√ download file link
-√ update file
+- returns a 401 on attempt to upload without signing in
+- returns a 400 if request has no file
+- returns a 200 on successfull upload
+- returns list of 3 uploaded files
+- returns list of 5 uploaded files, 3 on 1st page and 2 on 2nd
+- upload file, check physically uploaded, delete file from database and from disk
+- get file information
+- download file link
+- update file
+
+To run tests type a command:
 
 ```bash
 npm run test
