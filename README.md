@@ -1,4 +1,4 @@
-# NodeJS Express Typescript Sequelize API example with JWT auth and files uploading features implemented
+# NodeJS Express Typescript Sequelize API example with JWT auth and files uploading
 
 ## Installation and run
 
