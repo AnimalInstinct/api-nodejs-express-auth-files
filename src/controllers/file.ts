@@ -6,7 +6,7 @@ import {
   fetchFiles,
   deleteFileById,
   getFilePath,
-} from '../services'
+} from '../services/file'
 const mime = require('mime-types')
 
 class FilesController {
